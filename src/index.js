@@ -77,6 +77,15 @@ class Game extends React.Component {
         const history = this.state.history;
         const currentHistory = history[history.length - 1]; // latest snapshot
         const winner = findWinner(currentHistory.squares);
+
+        const moves = history.map((step,move)=>{
+            const desc = move? "Go to Move #"+move:"Go to Start of the Game";
+            return(
+                <li key={move}>
+                    <button onClick={()=>{this.jumpTo(move)}}>{desc}</button>
+                </li>
+            )
+        });
         let status = "";
         if (findWinner(currentHistory.squares) == "X") {
             status = 'X is the winner';
@@ -96,7 +105,7 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <ol>{/* TODO */}</ol>
+                    <ol>{moves}</ol>
                 </div>
             </div>
         );
